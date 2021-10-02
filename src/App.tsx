@@ -1,3 +1,5 @@
-const App = (): JSX.Element => <h1>É us guri</h1>;
+import { Quiz } from './pages/Quiz';
+
+const App = (): JSX.Element => <Quiz />;
 
 export default App;
