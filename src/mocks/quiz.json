@@ -1,0 +1,40 @@
+{
+  "data": {
+    "title": "Qual área?",
+    "answers": ["Consumidor", "Família"],
+    "linkedQuestions": [
+      {
+        "title": "Qual meio?",
+        "answers": ["Online", "Físico"],
+        "linkedQuestions": [
+          {
+            "title": "Qual o problema?",
+            "answers": ["Reembolso", "Não recebimento", "Propagando enganosa"]
+          },
+          {
+            "title": "Qual o problema?",
+            "answers": ["Produto vencido", "Produto falsificado"]
+          }
+        ]
+      },
+      {
+        "title": "Qual relação?",
+        "answers": ["Conjuge", "Filhos", "Pais"],
+        "linkedQuestions": [
+          {
+            "title": "Qual o problema?",
+            "answers": ["Separação", "Mudança de nome", "Divisão de bens"]
+          },
+          {
+            "title": "Qual o problema?",
+            "answers": ["Pensão", "Disputa de guarda"]
+          },
+          {
+            "title": "Qual o problema?",
+            "answers": ["Herança", "Cuidados"]
+          }
+        ]
+      }
+    ]
+  }
+}
