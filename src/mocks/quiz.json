@@ -1,39 +1,80 @@
 {
   "data": {
-    "title": "Qual área?",
-    "answers": ["Consumidor", "Família"],
-    "linkedQuestions": [
+    "questions": [
       {
-        "title": "Qual meio?",
-        "answers": ["Online", "Físico"],
-        "linkedQuestions": [
-          {
-            "title": "Qual o problema?",
-            "answers": ["Reembolso", "Não recebimento", "Propagando enganosa"]
-          },
-          {
-            "title": "Qual o problema?",
-            "answers": ["Produto vencido", "Produto falsificado"]
-          }
-        ]
+        "id": "q1",
+        "title": "Qual área?"
       },
       {
-        "title": "Qual relação?",
-        "answers": ["Conjuge", "Filhos", "Pais"],
-        "linkedQuestions": [
-          {
-            "title": "Qual o problema?",
-            "answers": ["Separação", "Mudança de nome", "Divisão de bens"]
-          },
-          {
-            "title": "Qual o problema?",
-            "answers": ["Pensão", "Disputa de guarda"]
-          },
-          {
-            "title": "Qual o problema?",
-            "answers": ["Herança", "Cuidados"]
-          }
-        ]
+        "id": "q11",
+        "title": "Qual meio?"
+      },
+      {
+        "id": "q111",
+        "title": "Qual o problema?"
+      },
+      {
+        "id": "q112",
+        "title": "Qual o problema?"
+      }
+    ],
+    "answers": [
+      {
+        "id": "a1",
+        "title": "Consumidor",
+        "description": "A área do consumidor tem a ver com compras e coisas",
+        "questionId": "q1",
+        "nextQuestionId": "q11"
+      },
+      {
+        "id": "a11",
+        "title": "Online",
+        "description": "O meio online...",
+        "questionId": "q11",
+        "nextQuestionId": "q111"
+      },
+      {
+        "id": "a111",
+        "title": "Reembolso",
+        "description": "Reembolso tem a ver com...",
+        "questionId": "q111"
+      },
+      {
+        "id": "a112",
+        "title": "Propaganda enganosa",
+        "description": "Propaganda enganosa tem a ver com...",
+        "questionId": "q111"
+      },
+      {
+        "id": "a113",
+        "title": "Não recebimento",
+        "description": "Não recebimento tem a ver com...",
+        "questionId": "q111"
+      },
+      {
+        "id": "a12",
+        "title": "Físico",
+        "description": "O meio físico tem a ver com...",
+        "questionId": "q11",
+        "nextQuestionId": "q112"
+      },
+      {
+        "id": "a121",
+        "title": "Produto vencido",
+        "description": "Produto vencido tem a ver com...",
+        "questionId": "q112"
+      },
+      {
+        "id": "a122",
+        "title": "Produto falsificado",
+        "description": "Produto falsificado tem a ver com...",
+        "questionId": "q112"
+      },
+      {
+        "id": "a2",
+        "title": "Família",
+        "description": "A área da família tem a ver com a família",
+        "questionId": "q1"
       }
     ]
   }
