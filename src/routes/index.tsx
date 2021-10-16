@@ -1,12 +1,15 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import { Quiz } from '../pages';
+import { Quiz, QuizDashboard } from '../pages';
 
 export const Routes = (): JSX.Element => (
   <Switch>
-    <Route path="/quiz">
+    <Route exact path="/quiz">
       <Quiz />
+    </Route>
+    <Route exact path="/dashboard/quiz">
+      <QuizDashboard />
     </Route>
   </Switch>
 );
