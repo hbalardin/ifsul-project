@@ -47,7 +47,7 @@ export const Quiz = (): JSX.Element => {
   }, []);
 
   return (
-    <section>
+    <main>
       {showResults
         ? (
           <>
@@ -86,6 +86,6 @@ export const Quiz = (): JSX.Element => {
             </div>
           </>
         )}
-    </section>
+    </main>
   );
 };
