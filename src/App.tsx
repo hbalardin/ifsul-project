@@ -5,7 +5,7 @@ import { GlobalStyle } from './styles/global';
 const App = (): JSX.Element => (
   <BrowserRouter>
     <Routes />
-    <GlobalStyle /> 
+    <GlobalStyle />
   </BrowserRouter>
 );
 
