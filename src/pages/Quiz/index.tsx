@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-
+import { AnswerCard } from '../../components';
 import quiz from '../../mocks/quiz.json';
 
 interface Question {
@@ -61,26 +61,12 @@ export const Quiz = (): JSX.Element => {
             <div>
               <ul style={{ padding: 0 }}>
                 {currentAnswers.map((answer) => (
-                  <li
+                  <AnswerCard
                     key={answer.id}
-                    style={{
-                      listStyle: 'none',
-                    }}
-                  >
-                    <button
-                      type="button"
-                      onClick={() => handleSelectAnswer(answer.nextQuestionId)}
-                      style={{
-                        padding: '24px 32px',
-                        border: '1px solid #000',
-                        cursor: 'pointer',
-                        width: '100%',
-                        textAlign: 'left',
-                      }}
-                    >
-                      {answer.title}
-                    </button>
-                  </li>
+                    title={answer.title}
+                    description={answer.description}
+                    onClick={() => handleSelectAnswer(answer.nextQuestionId)}
+                  />
                 ))}
               </ul>
             </div>
