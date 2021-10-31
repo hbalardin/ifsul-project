@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
-import { AnswerCard } from '../../components';
 import quiz from '../../mocks/quiz.json';
+
+import { AnswerCard } from '../../components';
+import { Button } from '../../components/Button';
+
+import { Container } from './styles';
 
 interface Question {
   id: string;
@@ -47,18 +51,24 @@ export const Quiz = (): JSX.Element => {
   }, []);
 
   return (
-    <main>
+    <Container>
       {showResults
         ? (
           <>
-            <h1>Quiz finalizado!</h1>
-            <button onClick={startQuiz} type="button">Reiniciar</button>
+            <header>
+              <h1>Quiz finalizado!</h1>
+            </header>
+            <section>
+              <Button onClick={startQuiz}>Reiniciar</Button>
+            </section>
           </>
         )
         : (
           <>
-            <h1>{currentQuestion?.title}</h1>
-            <div>
+            <header>
+              <h1>{currentQuestion?.title}</h1>
+            </header>
+            <section>
               <ul style={{ padding: 0 }}>
                 {currentAnswers.map((answer) => (
                   <AnswerCard
@@ -69,9 +79,9 @@ export const Quiz = (): JSX.Element => {
                   />
                 ))}
               </ul>
-            </div>
+            </section>
           </>
         )}
-    </main>
+    </Container>
   );
 };
