@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import { Quiz, QuizDashboard } from '../pages';
+import { Login, Quiz, QuizDashboard } from '../pages';
 
 export const Routes = (): JSX.Element => (
   <Switch>
@@ -10,6 +10,9 @@ export const Routes = (): JSX.Element => (
     </Route>
     <Route exact path="/dashboard/quiz">
       <QuizDashboard />
+    </Route>
+    <Route exact path="/login">
+      <Login />
     </Route>
   </Switch>
 );
