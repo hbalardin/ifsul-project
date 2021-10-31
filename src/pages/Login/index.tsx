@@ -1,4 +1,5 @@
 import { Button } from '../../components/Button';
+import { Input } from '../../components/Input';
 import { Container } from './styles';
 
 export const Login = (): JSX.Element => (
@@ -8,10 +9,10 @@ export const Login = (): JSX.Element => (
 
       <form>
         <label htmlFor="userLogin">Usuário</label>
-        <input id="userLogin" type="text" />
+        <Input id="userLogin" itemType="text" />
 
         <label htmlFor="userPassword">Senha</label>
-        <input id="userPassword" type="password" />
+        <Input id="userPassword" itemType="password" />
 
         <Button>Login</Button>
       </form>

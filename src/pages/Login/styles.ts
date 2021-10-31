@@ -30,13 +30,16 @@ export const Container = styled.main`
 
       label {
         font-size: 14px;
+        margin-bottom: 8px;
+        color: ${(props) => props.theme.color.text};
       }
 
-      input {
-        margin-bottom: 16px;
+      label + input {
+        margin-bottom: 24px;
       }
 
       button {
+        margin-top: 16px;
         align-self: center;
       }
     }
