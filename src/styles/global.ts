@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     body {
         background-color: #0D0D0D;
         color: #fafafa;
+        font-family: 'Montserrat', sans-serif;
     }
 
     button {
