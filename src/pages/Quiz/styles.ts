@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 
 export const Container = styled.main`
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  min-width: 100vw;
+  height: 100%;
+  width: 100%;
 
+  display: flex;
+`;
+
+export const Content = styled.article`
+  width: 100%;
   padding: 24px 48px;
 
   header {
@@ -14,7 +21,9 @@ export const Container = styled.main`
     height: 80px;
     width: 100%;
 
-    margin-bottom: 32px;
+    > h1 {
+      font-size: 32px;
+    }
   }
 
   section {
@@ -22,12 +31,25 @@ export const Container = styled.main`
     display: flex;
     justify-content: center;
 
+    padding: 12px 0;
+
     ul {
       width: 100%;
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      gap: 24px;
+      gap: 32px;
+    }
+
+    p {
+      text-align: center;
     }
   }
 
+  footer {
+    display: flex;
+    justify-content: center;
+
+    padding: 24px 0;
+  }
 `;

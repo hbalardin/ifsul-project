@@ -6,19 +6,26 @@ import { Container, Title } from './styles';
 
 interface AnswerCardProps {
   title: string;
-  description: string;
+  isSelected: boolean
   onClick: () => void;
 }
 
-export const AnswerCard = ({ title, description, onClick }: AnswerCardProps): JSX.Element => (
-  <Container>
-    <button
-      type="button"
-      onClick={onClick}
+export const AnswerCard = ({ title, isSelected, onClick }: AnswerCardProps): JSX.Element => {
+  const handleClick = (): void => {
+    onClick();
+  };
+
+  return (
+    <Container
+      isSelected={isSelected}
     >
-      <GoLaw size={88} color={theme.color.darkRed} />
-      <Title>{title}</Title>
-      {/* <p>{description}</p> */}
-    </button>
-  </Container>
-);
+      <button
+        type="button"
+        onClick={handleClick}
+      >
+        <GoLaw size={88} color={theme.color.darkRed} />
+        <Title>{title}</Title>
+      </button>
+    </Container>
+  );
+};
