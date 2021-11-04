@@ -7,12 +7,17 @@ import { theme } from '../../styles/theme';
 import { Container, DescriptionContainer, NextQuestionContainer } from './styles';
 
 interface AnswerEditableCardProps {
+  editable?: boolean
   title: string;
+  description: string;
   nextQuestionId?: string
+  onChangeTitle?: (title: string) => void
+  onChangeDescription?: (description: string) => void
 }
 
-export const AnswerEditableCard = ({ title, nextQuestionId }: AnswerEditableCardProps): JSX.Element => {
-  const [currentTitle, setCurrentTitle] = useState(title);
+export const AnswerEditableCard = ({
+  editable, title, onChangeTitle, description, onChangeDescription, nextQuestionId,
+}: AnswerEditableCardProps): JSX.Element => {
   const [showDescription, setShowDescription] = useState(false);
 
   return (
@@ -21,7 +26,7 @@ export const AnswerEditableCard = ({ title, nextQuestionId }: AnswerEditableCard
         type="button"
       >
         <header>
-          <EditableTitle title={currentTitle} onChangeTitle={setCurrentTitle} />
+          <EditableTitle editable={editable} title={title} onChangeTitle={(newTitle) => onChangeTitle && onChangeTitle(newTitle)} />
         </header>
         <DescriptionContainer showDescription={showDescription}>
           <span>
@@ -30,7 +35,7 @@ export const AnswerEditableCard = ({ title, nextQuestionId }: AnswerEditableCard
             </button>
             Descrição:
           </span>
-          <textarea cols={24} rows={8}>Oi</textarea>
+          <textarea cols={24} rows={8} value={description} onChange={(e) => onChangeDescription && onChangeDescription(e.target.value)}>{description}</textarea>
         </DescriptionContainer>
         <NextQuestionContainer>
           {nextQuestionId

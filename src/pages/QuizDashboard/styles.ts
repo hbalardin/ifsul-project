@@ -18,7 +18,7 @@ export const Content = styled.article`
   align-items: center;
 
   ul {
-    margin: 40px 0;
+    margin: 40px 0 16px;
 
     width: 100%;
     display: flex;
@@ -26,6 +26,21 @@ export const Content = styled.article`
     justify-content: center;
     align-items: baseline;
     gap: 32px;
-  }
 
+    > button {
+      margin: 24px 8px;
+      align-self: center;
+    }
+  }
+`;
+
+export const ButtonsContainer = styled.footer`
+    width: 100%;
+    padding: 24px 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 24px;
 `;
