@@ -18,9 +18,9 @@ export const Quiz = (): JSX.Element => {
     const firstQuestion = quiz.data.questions[0];
     const firstAnswers = quiz.data.answers.filter((answer) => answer.questionId === firstQuestion.id);
 
-    setCurrentQuestion(firstQuestion);
-    setCurrentAnswers(firstAnswers);
-    setQuizHasFinished(false);
+    // setCurrentQuestion(firstQuestion);
+    // setCurrentAnswers(firstAnswers);
+    // setQuizHasFinished(false);
   };
 
   const handleSelectAnswer = (answer: Answer): void => {
@@ -33,16 +33,16 @@ export const Quiz = (): JSX.Element => {
   };
 
   const handleNextQuestion = (): void => {
-    if (!selectedAnswer?.nextQuestionId) {
-      setQuizHasFinished(true);
-      return;
-    }
+    // if (!selectedAnswer?.nextQuestionId) {
+    //   setQuizHasFinished(true);
+    //   return;
+    // }
 
-    const nextQuestion = quiz.data.questions.find((question) => question.id === selectedAnswer.nextQuestionId);
-    const nextAnswers = quiz.data.answers.filter((answer) => answer.questionId === selectedAnswer.nextQuestionId);
+    // const nextQuestion = quiz.data.questions.find((question) => question.id === selectedAnswer.nextQuestionId);
+    // const nextAnswers = quiz.data.answers.filter((answer) => answer.questionId === selectedAnswer.nextQuestionId);
 
-    setCurrentQuestion(nextQuestion);
-    setCurrentAnswers(nextAnswers);
+    // setCurrentQuestion(nextQuestion);
+    // setCurrentAnswers(nextAnswers);
   };
 
   useEffect(() => {
