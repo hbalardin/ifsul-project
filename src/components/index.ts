@@ -1,3 +1,4 @@
+export * from './AddButton';
 export * from './AnswerCard';
 export * from './AnswerEditableCard';
 export * from './AnswersSidebar';
