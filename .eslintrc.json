@@ -48,7 +48,8 @@
         "react/react-in-jsx-scope": "off",
         "max-len": "off",
         "react/jsx-props-no-spreading": "off",
-        "react/require-default-props": "off"
+        "react/require-default-props": "off",
+        "camelcase": "off"
     },
     "settings": {
         "import/resolver": {
