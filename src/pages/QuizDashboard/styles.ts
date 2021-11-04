@@ -11,40 +11,21 @@ export const Container = styled.main`
 
 export const Content = styled.article`
   width: 100%;
-  padding: 24px 48px;
+  padding: 48px 72px;
 
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    height: 80px;
-    width: 100%;
-  }
+  ul {
+    margin: 40px 0;
 
-  section {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
-
-    padding: 12px 0;
-
-    ul {
-      margin-top: 32px;
-
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 32px;
-    }
+    align-items: baseline;
+    gap: 32px;
   }
 
-  footer {
-    display: flex;
-    justify-content: center;
-
-    padding: 24px 0;
-  }
 `;

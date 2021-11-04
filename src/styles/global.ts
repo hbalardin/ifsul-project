@@ -1,19 +1,24 @@
 import { createGlobalStyle } from 'styled-components';
+import { theme } from './theme';
 
 export const GlobalStyle = createGlobalStyle`
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    body {
-        background-color: #0D0D0D;
-        color: #fafafa;
-        font-family: 'Montserrat', sans-serif;
-    }
+  body {
+    background-color: ${theme.color.background};
+  }
 
-    button {
-        cursor: pointer;
-    }
+  body, button, textarea, span, h1, h2, h3, h4, h5, h6 {
+    color: ${theme.color.white};
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  button {
+    cursor: pointer;
+    border: 0;
+  }
 `;

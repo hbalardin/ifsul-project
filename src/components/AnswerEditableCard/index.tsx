@@ -1,29 +1,53 @@
 import { useState } from 'react';
-import { GoLaw } from 'react-icons/go';
+import { GoArrowRight, GoChevronUp, GoPlusSmall } from 'react-icons/go';
 import { EditableTitle } from '..';
 
 import { theme } from '../../styles/theme';
 
-import { Container } from './styles';
+import { Container, DescriptionContainer, NextQuestionContainer } from './styles';
 
 interface AnswerEditableCardProps {
   title: string;
-  isSelected: boolean
+  nextQuestionId?: string
 }
 
-export const AnswerEditableCard = ({ title, isSelected }: AnswerEditableCardProps): JSX.Element => {
+export const AnswerEditableCard = ({ title, nextQuestionId }: AnswerEditableCardProps): JSX.Element => {
   const [currentTitle, setCurrentTitle] = useState(title);
+  const [showDescription, setShowDescription] = useState(false);
 
   return (
-    <Container
-      isSelected={isSelected}
-    >
+    <Container>
       <button
         type="button"
-        // onClick={handleClick}
       >
-        <GoLaw size={88} color={theme.color.darkRed} />
-        <EditableTitle centered title={currentTitle} onChangeTitle={setCurrentTitle} />
+        <header>
+          <EditableTitle title={currentTitle} onChangeTitle={setCurrentTitle} />
+        </header>
+        <DescriptionContainer showDescription={showDescription}>
+          <span>
+            <button type="button" onClick={() => setShowDescription(!showDescription)}>
+              <GoChevronUp size={24} color={theme.color.darkRed} />
+            </button>
+            Descrição:
+          </span>
+          <textarea cols={24} rows={8}>Oi</textarea>
+        </DescriptionContainer>
+        <NextQuestionContainer>
+          {nextQuestionId
+            ? (
+              <button type="button">
+                Próxima pergunta:
+                <GoArrowRight size={24} color={theme.color.white} />
+              </button>
+            )
+            : (
+              <button type="button">
+                Criar pergunta:
+
+                <GoPlusSmall size={24} color={theme.color.white} />
+              </button>
+            )}
+        </NextQuestionContainer>
       </button>
     </Container>
   );

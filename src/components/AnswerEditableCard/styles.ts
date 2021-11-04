@@ -1,12 +1,13 @@
 import styled, { css } from 'styled-components';
 
-interface ContainerProps {
-  isSelected: boolean
+interface DescriptionContainerProps {
+  showDescription: boolean
 }
 
-export const Container = styled.li<ContainerProps>`
+export const Container = styled.li`
     width: 100%;
     max-width: 264px;
+    height: fit-content;
 
     background: ${(props) => props.theme.color.gray};
     border-radius: 16px;
@@ -14,15 +15,10 @@ export const Container = styled.li<ContainerProps>`
     list-style: none;
     cursor: pointer;
 
-    button {
-        padding: 48px 32px;
-        border: 0;
+    > button {
+        padding: 32px 24px;
         width: 100%;
         background: transparent;
-
-        input {
-          margin-top: 24px;
-        }
     }
 
     transition: all ease 0.2s;
@@ -30,20 +26,69 @@ export const Container = styled.li<ContainerProps>`
     :hover {
       filter: brightness(1.1);
     }
+`;
 
-    ${(props) => {
-    if (!props.isSelected) {
-      return css`
-        border: 2px solid transparent;
-      `;
+export const DescriptionContainer = styled.section<DescriptionContainerProps>`
+  width: 100%;
+
+  margin-top: 16px;
+
+  span {
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
+
+    button {
+      background: transparent;
+      line-height: 0;
+
+      transition: all ease 0.3s;
     }
+  }
 
-    return css`
-        border: 2px solid ${props.theme.color.darkRed};
-        transform: scale(1.05);
+  textarea {
+    width: 100%;
+    padding: 4px;
+    margin-top: 8px;
 
-        -webkit-box-shadow: 0px 0px 24px 4px rgba(153,0,0,0.25);
-        box-shadow: 0px 0px 24px 4px rgba(153,0,0,0.25);
-      `;
-  }};
+    color: ${(props) => props.theme.color.white};
+
+    background: transparent;
+    border: 1px dashed ${(props) => props.theme.color.darkRed};
+    outline: none;
+
+    transition: all ease 0.3s;
+  }
+
+  ${(props) => (props.showDescription
+    ? css`
+      button {
+        transform: rotate(180deg);
+      }
+      textarea {
+        height: 0;
+        padding: 0;
+        border: 0 dashed ${props.theme.color.darkRed};
+      }
+    `
+    : '')}
+`;
+
+export const NextQuestionContainer = styled.footer`
+  margin-top: 16px;
+
+  button {
+    width: 100%;
+    padding: 8px 8px 8px 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: ${(props) => props.theme.color.darkRed};
+    border-radius: 8px;
+
+    transition: all ease 0.3s;
+  }
 `;
