@@ -8,6 +8,7 @@ export const Container = styled.li`
     width: 100%;
     max-width: 264px;
     height: fit-content;
+    padding: 32px 24px;
 
     background: ${(props) => props.theme.color.gray};
     border-radius: 16px;
@@ -15,11 +16,6 @@ export const Container = styled.li`
     list-style: none;
     cursor: pointer;
 
-    > button {
-        padding: 32px 24px;
-        width: 100%;
-        background: transparent;
-    }
 
     transition: all ease 0.2s;
 

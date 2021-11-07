@@ -49,7 +49,9 @@
         "max-len": "off",
         "react/jsx-props-no-spreading": "off",
         "react/require-default-props": "off",
-        "camelcase": "off"
+        "camelcase": "off",
+        "no-unused-expressions": "off",
+        "no-alert": "off"
     },
     "settings": {
         "import/resolver": {

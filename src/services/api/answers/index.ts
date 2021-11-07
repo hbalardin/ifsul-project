@@ -10,6 +10,13 @@ interface CreateAnswerProps {
   questionId: string
 }
 
+interface UpdateAnswerProps {
+  id: string;
+  title: string
+  description: string
+  questionId: string
+}
+
 interface GetAnswersByQuestionProps {
   questionId: string
 }
@@ -23,6 +30,18 @@ const createAnswer = async (data: CreateAnswerProps): Promise<Answer
     title: createdAnswerResponse.data.title,
     description: createdAnswerResponse.data.description,
     questionId: createdAnswerResponse.data.question_id,
+  };
+};
+
+const updateAnswer = async (data: UpdateAnswerProps): Promise<Answer
+> => {
+  const updatedAnswerResponse = await api.put<UpdateAnswerProps, AxiosResponse<DatabaseAnswer>>(`/answers/${data.id}`, data);
+
+  return {
+    id: updatedAnswerResponse.data?.id,
+    title: updatedAnswerResponse.data?.title,
+    description: updatedAnswerResponse.data?.description,
+    questionId: updatedAnswerResponse.data?.question_id,
   };
 };
 
@@ -56,4 +75,5 @@ export const answersService = {
   createAnswer,
   getAnswers,
   getAnswersByQuestion,
+  updateAnswer,
 };

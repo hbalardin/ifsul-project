@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
+import { FaTimes, FaCheck } from 'react-icons/fa';
 
 import { answersService, questionsService } from '../../services/api';
 
 import { Answer, Question } from '../../models';
 import {
-  AddButton, AnswerEditableCard, Button, EditableTitle,
+  AddButton, AnswerEditableCard, Button, EditableTitle, IconButton,
 } from '../../components';
 
 import { Container, ButtonsContainer, Content } from './styles';
+import { theme } from '../../styles/theme';
 
 export const QuizDashboard = (): JSX.Element => {
   const [currentQuestion, setCurrentQuestion] = useState<Question>();
@@ -15,6 +17,8 @@ export const QuizDashboard = (): JSX.Element => {
 
   const [questionToCreate, setQuestionToCreate] = useState<Omit<Question, 'id'>>();
   const [answerToCreate, setAnswerToCreate] = useState<Omit<Answer, 'id'>>();
+  const [answerValueBeforeUpdate, setAnswerValueBeforeChange] = useState<Partial<Answer>>();
+  const [questionValueBeforeUpdate, setQuestionValueBeforeChange] = useState<Question>();
 
   const fetchQuizData = async (): Promise<void> => {
     const questionsResponse = await questionsService.getQuestions();
@@ -41,7 +45,7 @@ export const QuizDashboard = (): JSX.Element => {
     setAnswerToCreate({ title: 'Título padrão', description: 'Descrição padrão.', questionId: currentQuestion.id });
   };
 
-  const handleClearAnswerT = (): void => {
+  const handleClearAnswerToCreate = (): void => {
     setAnswerToCreate(undefined);
   };
 
@@ -49,27 +53,112 @@ export const QuizDashboard = (): JSX.Element => {
     if (!answerToCreate) return;
 
     const createdAnswer = await answersService.createAnswer(answerToCreate);
-    console.log('🚀 ~ file: index.tsx ~ line 52 ~ handleSaveAnswer ~ createdAnswer', createdAnswer);
     setCurrentAnswers([...currentAnswers, createdAnswer]);
-    handleClearAnswerT();
+    handleClearAnswerToCreate();
+  };
+
+  const handleChangeAnswerData = (answerValues: Partial<Answer>, newAnswerValues: Partial<Answer>): void => {
+    if (!answerValueBeforeUpdate) {
+      setAnswerValueBeforeChange(answerValues);
+    } else if (answerValues.id !== answerValueBeforeUpdate?.id) {
+      alert('Before edit another answer you need to save or discard your changes.');
+      return;
+    }
+
+    const updatedAnswer = {
+      ...answerValues,
+      ...newAnswerValues,
+    };
+
+    const arrayCopy = [...currentAnswers];
+    const answerIndex = arrayCopy.findIndex((answer) => answer.id === updatedAnswer.id);
+    const deleteCount = 1;
+
+    arrayCopy.splice(answerIndex, deleteCount, updatedAnswer as Answer);
+
+    setCurrentAnswers(arrayCopy);
+  };
+
+  const handleDiscardAnswerChanges = (): void => {
+    if (!answerValueBeforeUpdate) return;
+
+    const arrayCopy = [...currentAnswers];
+    const answerIndex = arrayCopy.findIndex((answer) => answer.id === answerValueBeforeUpdate.id);
+    const deleteCount = 1;
+
+    arrayCopy.splice(answerIndex, deleteCount, answerValueBeforeUpdate as Answer);
+
+    setCurrentAnswers(arrayCopy);
+    setAnswerValueBeforeChange(undefined);
+  };
+
+  const handleSaveAnswerChanges = async (): Promise<void> => {
+    if (!answerValueBeforeUpdate) return;
+
+    const updatedAnswer = currentAnswers.find((answer) => answer.id === answerValueBeforeUpdate?.id);
+
+    updatedAnswer && await answersService.updateAnswer(updatedAnswer);
+
+    setAnswerValueBeforeChange(undefined);
+  };
+
+  const handleGoToNextQuestion = async (answerId: string): Promise<void> => {
+    setCurrentAnswers([]);
+
+    const questionsResponse = await questionsService.getQuestions();
+    const nextQuestion = questionsResponse.find((question) => answerId === question.linkedAnswerId);
+    setCurrentQuestion(nextQuestion);
   };
 
   useEffect(() => {
     fetchQuizData();
   }, []);
 
+  const handleQuestionChangeTitle = (title: string): void => {
+    if (!questionValueBeforeUpdate) setQuestionValueBeforeChange(currentQuestion);
+
+    if (!currentQuestion) return;
+    setCurrentQuestion({ ...currentQuestion, title });
+  };
+
+  const handleDiscardQuestionChanges = (): void => {
+    if (!questionValueBeforeUpdate) return;
+
+    setCurrentQuestion(questionValueBeforeUpdate);
+    setQuestionValueBeforeChange(undefined);
+  };
+
+  const handleSaveQuestionChanges = async (): Promise<void> => {
+    if (!questionValueBeforeUpdate) return;
+
+    currentQuestion && await questionsService.updateQuestion(currentQuestion);
+
+    setQuestionValueBeforeChange(undefined);
+  };
+
   return (
     <Container>
       <Content>
         {currentQuestion ? (
           <>
-            <EditableTitle size={32} centered title={currentQuestion.title} onChangeTitle={(title: string) => setCurrentQuestion({ ...currentQuestion, title })} />
+            <header>
+              <EditableTitle size={32} centered title={currentQuestion.title} onChangeTitle={handleQuestionChangeTitle} />
+              {questionValueBeforeUpdate && (
+              <>
+                <IconButton onClick={handleDiscardQuestionChanges}><FaTimes size={16} color={theme.color.white} /></IconButton>
+                <IconButton onClick={handleSaveQuestionChanges}><FaCheck size={16} color={theme.color.white} /></IconButton>
+              </>
+              )}
+            </header>
             <ul style={{ padding: 0 }}>
               {currentAnswers.map((answer) => (
                 <AnswerEditableCard
                   key={answer.id}
                   title={answer.title}
                   description={answer.description}
+                  // handleCreateQuestion={handleShowQuestionInput}
+                  handleGoToNextQuestion={() => handleGoToNextQuestion(answer.id)}
+                  handleChangeAnswerData={(newAnswerValues) => handleChangeAnswerData(answer, newAnswerValues)}
                 />
               ))}
               {answerToCreate ? (
@@ -77,8 +166,7 @@ export const QuizDashboard = (): JSX.Element => {
                   editable
                   title={answerToCreate.title}
                   description={answerToCreate.description}
-                  onChangeTitle={(title) => setAnswerToCreate({ ...answerToCreate, title })}
-                  onChangeDescription={(description) => setAnswerToCreate({ ...answerToCreate, description })}
+                  handleChangeAnswerData={(newAnswerValues) => handleChangeAnswerData(answerToCreate, newAnswerValues)}
                 />
               ) : (
                 <AddButton onClick={handleCreateAnswerCard} />
@@ -86,8 +174,14 @@ export const QuizDashboard = (): JSX.Element => {
             </ul>
             {answerToCreate && (
             <ButtonsContainer>
-              <Button onClick={handleClearAnswerT}>Cancelar</Button>
-              <Button onClick={handleSaveAnswer}>Salvar resposta</Button>
+              <Button onClick={handleClearAnswerToCreate}>Cancelar</Button>
+              <Button onClick={handleSaveAnswer}>Salvar</Button>
+            </ButtonsContainer>
+            )}
+            {answerValueBeforeUpdate && (
+            <ButtonsContainer>
+              <Button onClick={handleDiscardAnswerChanges}>Descartar alteração</Button>
+              <Button onClick={handleSaveAnswerChanges}>Salvar alterações</Button>
             </ButtonsContainer>
             )}
           </>

@@ -17,6 +17,12 @@ export const Content = styled.article`
   flex-direction: column;
   align-items: center;
 
+  > header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
   ul {
     margin: 40px 0 16px;
 

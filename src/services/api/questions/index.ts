@@ -8,6 +8,11 @@ interface CreateQuestionProps {
   title: string
 }
 
+interface UpdateQuestionProps {
+  id: string
+  title: string
+}
+
 const createQuestion = async ({ title }: CreateQuestionProps): Promise<Question> => {
   const response = await api.post<CreateQuestionProps, AxiosResponse<DatabaseQuestion>>('/questions', { title });
 
@@ -30,7 +35,18 @@ const getQuestions = async (): Promise<Question[]> => {
   return parsedQuestions;
 };
 
+const updateQuestion = async (data: UpdateQuestionProps): Promise<Question
+> => {
+  const updatedQuestionResponse = await api.put<UpdateQuestionProps, AxiosResponse<DatabaseQuestion>>(`/questions/${data.id}`, data);
+
+  return {
+    id: updatedQuestionResponse.data?.id,
+    title: updatedQuestionResponse.data?.title,
+  };
+};
+
 export const questionsService = {
   createQuestion,
   getQuestions,
+  updateQuestion,
 };
