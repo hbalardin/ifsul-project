@@ -13,7 +13,7 @@ export const Content = styled.article`
   width: 100%;
   padding: 24px 48px;
 
-  header {
+  > header {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,7 +26,7 @@ export const Content = styled.article`
     }
   }
 
-  section {
+  > section {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -46,7 +46,7 @@ export const Content = styled.article`
     }
   }
 
-  footer {
+  > footer {
     display: flex;
     justify-content: center;
 

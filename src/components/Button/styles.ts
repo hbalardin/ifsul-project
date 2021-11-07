@@ -6,7 +6,6 @@ export const ButtonContainer = styled.button`
   background: ${(props) => props.theme.color.darkRed};
   color: ${(props) => props.theme.color.white};
 
-  border: 0;
   border-radius: 4px;
   font-size: 16px;
   font-weight: 600;

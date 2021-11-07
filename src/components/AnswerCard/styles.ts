@@ -16,7 +16,6 @@ export const Container = styled.li<ContainerProps>`
 
     button {
         padding: 48px 32px;
-        border: 0;
         width: 100%;
         background: transparent;
     }
