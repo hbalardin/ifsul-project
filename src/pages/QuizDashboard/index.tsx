@@ -102,14 +102,6 @@ export const QuizDashboard = (): JSX.Element => {
     setAnswerValueBeforeChange(undefined);
   };
 
-  const handleGoToNextQuestion = async (answerId: string): Promise<void> => {
-    setCurrentAnswers([]);
-
-    const questionsResponse = await questionsService.getQuestions();
-    const nextQuestion = questionsResponse.find((question) => answerId === question.linkedAnswerId);
-    setCurrentQuestion(nextQuestion);
-  };
-
   useEffect(() => {
     fetchQuizData();
   }, []);
@@ -136,6 +128,19 @@ export const QuizDashboard = (): JSX.Element => {
     setQuestionValueBeforeChange(undefined);
   };
 
+  const handleGoToNextQuestion = async (id: string): Promise<void> => {
+    const nextQuestionResponse = await questionsService.getQuestionById({ id });
+    const nextQuestionAnswersResponse = await answersService.getAnswersByQuestion({ questionId: id });
+
+    setCurrentQuestion(nextQuestionResponse);
+    setCurrentAnswers(nextQuestionAnswersResponse);
+  };
+
+  const handleCreateNextQuestion = async (answer: Answer): Promise<void> => {
+    const createdQuestionResponse = await questionsService.createQuestionFromAnswer({ linkedAnswerId: answer.id, title: `Pergunta para a resposta "${answer.title}"` });
+    handleGoToNextQuestion(createdQuestionResponse.id);
+  };
+
   return (
     <Container>
       <Content>
@@ -156,7 +161,8 @@ export const QuizDashboard = (): JSX.Element => {
                   key={answer.id}
                   title={answer.title}
                   description={answer.description}
-                  // handleCreateQuestion={handleShowQuestionInput}
+                  nextQuestionId={answer?.linkedQuestionId}
+                  handleCreateQuestion={() => handleCreateNextQuestion(answer)}
                   handleGoToNextQuestion={() => handleGoToNextQuestion(answer.id)}
                   handleChangeAnswerData={(newAnswerValues) => handleChangeAnswerData(answer, newAnswerValues)}
                 />
@@ -166,7 +172,6 @@ export const QuizDashboard = (): JSX.Element => {
                   editable
                   title={answerToCreate.title}
                   description={answerToCreate.description}
-                  handleChangeAnswerData={(newAnswerValues) => handleChangeAnswerData(answerToCreate, newAnswerValues)}
                 />
               ) : (
                 <AddButton onClick={handleCreateAnswerCard} />
@@ -175,7 +180,7 @@ export const QuizDashboard = (): JSX.Element => {
             {answerToCreate && (
             <ButtonsContainer>
               <Button onClick={handleClearAnswerToCreate}>Cancelar</Button>
-              <Button onClick={handleSaveAnswer}>Salvar</Button>
+              <Button onClick={handleSaveAnswer}>Criar</Button>
             </ButtonsContainer>
             )}
             {answerValueBeforeUpdate && (
@@ -192,7 +197,6 @@ export const QuizDashboard = (): JSX.Element => {
               <Button onClick={handleCreateQuestion}>Criar</Button>
             </ButtonsContainer>
           </>
-
         )}
       </Content>
     </Container>

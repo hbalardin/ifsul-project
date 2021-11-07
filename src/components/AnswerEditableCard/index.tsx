@@ -45,9 +45,8 @@ export const AnswerEditableCard = ({
             </button>
           )
           : (
-            <button type="button">
+            <button type="button" onClick={handleCreateQuestion}>
               Criar pergunta:
-
               <GoPlusSmall size={24} color={theme.color.white} />
             </button>
           )}
