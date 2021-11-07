@@ -3,5 +3,10 @@ export interface Answer {
   title: string;
   description: string;
   questionId: string
-  nextQuestionId?: string;
+}
+export interface DatabaseAnswer {
+  id: string;
+  title: string;
+  description: string;
+  question_id: string
 }
