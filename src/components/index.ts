@@ -3,6 +3,7 @@ export * from './AnswerCard';
 export * from './AnswerEditableCard';
 export * from './AnswersSidebar';
 export * from './Button';
+export * from './DashboardSidebar';
 export * from './EditableTitle';
 export * from './IconButton';
 export * from './Input';
