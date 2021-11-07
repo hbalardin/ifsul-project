@@ -5,7 +5,7 @@ import { answersService, questionsService } from '../../services/api';
 
 import { Answer, Question } from '../../models';
 import {
-  AddButton, AnswerEditableCard, Button, EditableTitle, IconButton,
+  AddButton, AnswerEditableCard, Button, DashboardSidebar, EditableTitle, IconButton,
 } from '../../components';
 
 import { Container, ButtonsContainer, Content } from './styles';
@@ -138,6 +138,7 @@ export const QuizDashboard = (): JSX.Element => {
 
   return (
     <Container>
+      <DashboardSidebar />
       <Content>
         {currentQuestion ? (
           <>
