@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import quiz from '../../mocks/quiz.json';
-
 import { Answer, Question } from '../../models';
 import { AnswerCard, AnswersSidebar, Button } from '../../components';
 
 import { Container, Content } from './styles';
+import { answersService, questionsService } from '../../services/api';
 
 export const Quiz = (): JSX.Element => {
   const [currentQuestion, setCurrentQuestion] = useState<Question>();
@@ -14,13 +13,16 @@ export const Quiz = (): JSX.Element => {
 
   const [quizHasFinished, setQuizHasFinished] = useState(false);
 
-  const startQuiz = (): void => {
-    const firstQuestion = quiz.data.questions[0];
-    const firstAnswers = quiz.data.answers.filter((answer) => answer.questionId === firstQuestion.id);
+  const startQuiz = async (): Promise<void> => {
+    const questionsResponse = await questionsService.getQuestions();
+    const firstQuestion = questionsResponse.find((question) => !question.linkedAnswerId);
+    if (!firstQuestion) return;
 
-    // setCurrentQuestion(firstQuestion);
-    // setCurrentAnswers(firstAnswers);
-    // setQuizHasFinished(false);
+    const firstAnswersResponse = await answersService.getAnswersByQuestion({ questionId: firstQuestion.id });
+
+    setCurrentQuestion(firstQuestion);
+    setCurrentAnswers(firstAnswersResponse);
+    setQuizHasFinished(false);
   };
 
   const handleSelectAnswer = (answer: Answer): void => {
@@ -32,17 +34,17 @@ export const Quiz = (): JSX.Element => {
     setSelectedAnswer(answer);
   };
 
-  const handleNextQuestion = (): void => {
-    // if (!selectedAnswer?.nextQuestionId) {
-    //   setQuizHasFinished(true);
-    //   return;
-    // }
+  const handleNextQuestion = async (): Promise<void> => {
+    if (!selectedAnswer?.linkedQuestionId) {
+      setQuizHasFinished(true);
+      return;
+    }
 
-    // const nextQuestion = quiz.data.questions.find((question) => question.id === selectedAnswer.nextQuestionId);
-    // const nextAnswers = quiz.data.answers.filter((answer) => answer.questionId === selectedAnswer.nextQuestionId);
+    const nextQuestion = await questionsService.getQuestionById({ id: selectedAnswer.linkedQuestionId });
+    const nextAnswers = await answersService.getAnswersByQuestion({ questionId: selectedAnswer.linkedQuestionId });
 
-    // setCurrentQuestion(nextQuestion);
-    // setCurrentAnswers(nextAnswers);
+    setCurrentQuestion(nextQuestion);
+    setCurrentAnswers(nextAnswers);
   };
 
   useEffect(() => {

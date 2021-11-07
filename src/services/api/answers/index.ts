@@ -53,6 +53,7 @@ const getAnswers = async (): Promise<Answer[]> => {
     title: answer.title,
     description: answer.description,
     questionId: answer.question_id,
+    linkedQuestionId: answer.linked_question_id,
   }));
 
   return parsedAnswers;
@@ -66,6 +67,7 @@ const getAnswersByQuestion = async ({ questionId }: GetAnswersByQuestionProps): 
     title: answer.title,
     description: answer.description,
     questionId: answer.question_id,
+    linkedQuestionId: answer.linked_question_id,
   }));
 
   return parsedAnswers;
