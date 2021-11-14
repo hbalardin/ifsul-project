@@ -5,7 +5,6 @@ import { DashboardSidebarContainer } from './styles';
 import { theme } from '../../styles/theme';
 
 export const DashboardSidebar = (): JSX.Element => (
-
   <DashboardSidebarContainer>
     <nav>
       <ul>
@@ -16,9 +15,9 @@ export const DashboardSidebar = (): JSX.Element => (
           </Link>
         </li>
         <li>
-          <Link to="/dashboard/quiz">
+          <Link to="/quiz/management">
             <MdQuiz size={28} color={theme.color.darkRed} />
-            Dashboard Quiz
+            Manage Quiz
           </Link>
         </li>
         <li>
@@ -29,7 +28,5 @@ export const DashboardSidebar = (): JSX.Element => (
         </li>
       </ul>
     </nav>
-
   </DashboardSidebarContainer>
-
 );
