@@ -12,7 +12,7 @@ import {
 import { Container, ButtonsContainer, Content } from './styles';
 import { theme } from '../../styles/theme';
 
-export const QuizDashboard = (): JSX.Element => {
+export const QuizManagementPage = (): JSX.Element => {
   useEnsureAuth();
 
   const [currentQuestion, setCurrentQuestion] = useState<Question>();

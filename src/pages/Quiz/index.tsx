@@ -6,7 +6,7 @@ import { AnswerCard, AnswersSidebar, Button } from '../../components';
 import { Container, Content } from './styles';
 import { answersService, questionsService } from '../../services/api';
 
-export const Quiz = (): JSX.Element => {
+export const QuizPage = (): JSX.Element => {
   const [currentQuestion, setCurrentQuestion] = useState<Question>();
   const [currentAnswers, setCurrentAnswers] = useState<Answer[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState<Answer>();

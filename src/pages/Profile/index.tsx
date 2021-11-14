@@ -4,7 +4,7 @@ import { Container, Content } from './styles';
 import { useAuthContext } from '../../contexts/auth';
 import { useEnsureAuth } from '../../hooks/useEnsureAuth';
 
-export const Profile = (): JSX.Element => {
+export const ProfilePage = (): JSX.Element => {
   const { user, signOut } = useAuthContext();
   useEnsureAuth();
 

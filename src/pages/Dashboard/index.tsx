@@ -3,7 +3,7 @@ import { DashboardSidebar } from '../../components';
 import { Container, Content } from './styles';
 import { useEnsureAuth } from '../../hooks/useEnsureAuth';
 
-export const Dashboard = (): JSX.Element => {
+export const DashboardPage = (): JSX.Element => {
   useEnsureAuth();
 
   return (

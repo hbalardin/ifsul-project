@@ -6,7 +6,7 @@ import { useAuthContext } from '../../contexts/auth';
 import { Button, Input } from '../../components';
 import { Container } from './styles';
 
-export const Login = (): JSX.Element => {
+export const LoginPage = (): JSX.Element => {
   const { signIn } = useAuthContext();
   const history = useHistory();
 
