@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { FaTimes, FaCheck } from 'react-icons/fa';
 
 import { answersService, questionsService } from '../../services/api';
+import { useEnsureAuth } from '../../hooks/useEnsureAuth';
 
 import { Answer, Question } from '../../models';
 import {
@@ -12,6 +13,8 @@ import { Container, ButtonsContainer, Content } from './styles';
 import { theme } from '../../styles/theme';
 
 export const QuizDashboard = (): JSX.Element => {
+  useEnsureAuth();
+
   const [currentQuestion, setCurrentQuestion] = useState<Question>();
   const [currentAnswers, setCurrentAnswers] = useState<Answer[]>([]);
 
