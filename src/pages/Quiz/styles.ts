@@ -7,6 +7,22 @@ export const Container = styled.main`
   width: 100%;
 
   display: flex;
+
+  > section {
+    width: 100%;
+  }
+`;
+
+export const Header = styled.header`
+  width: 100%;
+  height: 80px;
+  padding: 16px 72px;
+
+  border-bottom: 2px solid ${(props) => props.theme.color.gray};
+
+  display: flex;
+  justify-content: end;
+  gap: 16px;
 `;
 
 export const Content = styled.article`

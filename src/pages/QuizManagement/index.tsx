@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { FaTimes, FaCheck } from 'react-icons/fa';
 
 import { answersService, questionsService } from '../../services/api';
@@ -9,11 +10,14 @@ import {
   AddButton, AnswerEditableCard, Button, DashboardSidebar, EditableTitle, IconButton,
 } from '../../components';
 
-import { Container, ButtonsContainer, Content } from './styles';
+import {
+  Container, ButtonsContainer, Content, Header,
+} from './styles';
 import { theme } from '../../styles/theme';
 
 export const QuizManagementPage = (): JSX.Element => {
   useEnsureAuth();
+  const history = useHistory();
 
   const [currentQuestion, setCurrentQuestion] = useState<Question>();
   const [currentAnswers, setCurrentAnswers] = useState<Answer[]>([]);
@@ -22,6 +26,8 @@ export const QuizManagementPage = (): JSX.Element => {
   const [answerToCreate, setAnswerToCreate] = useState<Omit<Answer, 'id'>>();
   const [answerValueBeforeUpdate, setAnswerValueBeforeChange] = useState<Partial<Answer>>();
   const [questionValueBeforeUpdate, setQuestionValueBeforeChange] = useState<Question>();
+
+  const hasUnsavedChanges = !!questionToCreate || !!answerToCreate || !!answerValueBeforeUpdate || !!questionValueBeforeUpdate;
 
   const fetchQuizData = async (): Promise<void> => {
     const questionsResponse = await questionsService.getQuestions();
@@ -131,9 +137,21 @@ export const QuizManagementPage = (): JSX.Element => {
     setQuestionValueBeforeChange(undefined);
   };
 
-  const handleGoToNextQuestion = async (id: string): Promise<void> => {
-    const nextQuestionResponse = await questionsService.getQuestionById({ id });
-    const nextQuestionAnswersResponse = await answersService.getAnswersByQuestion({ questionId: id });
+  const handleGoToPreviousQuestion = async (): Promise<void> => {
+    if (!currentQuestion) return;
+
+    const previousQuestionResponse = await questionsService.getPreviousQuestion({ currentQuestionId: currentQuestion.id });
+    const previousQuestionAnswersResponse = await answersService.getAnswersByQuestion({ questionId: previousQuestionResponse.id });
+
+    setCurrentQuestion(previousQuestionResponse);
+    setCurrentAnswers(previousQuestionAnswersResponse);
+  };
+
+  const handleGoToNextQuestion = async (linkedQuestionId?: string): Promise<void> => {
+    if (!linkedQuestionId) return;
+
+    const nextQuestionResponse = await questionsService.getQuestionById({ id: linkedQuestionId });
+    const nextQuestionAnswersResponse = await answersService.getAnswersByQuestion({ questionId: linkedQuestionId });
 
     setCurrentQuestion(nextQuestionResponse);
     setCurrentAnswers(nextQuestionAnswersResponse);
@@ -148,8 +166,12 @@ export const QuizManagementPage = (): JSX.Element => {
     <Container>
       <DashboardSidebar />
       <Content>
+        <Header>
+          <Button disabled={!currentQuestion?.linkedAnswerId} onClick={handleGoToPreviousQuestion}>Pergunta anterior</Button>
+          <Button disabled={hasUnsavedChanges} onClick={() => history.push('/quiz/preview')}>Preview</Button>
+        </Header>
         {currentQuestion ? (
-          <>
+          <section>
             <header>
               <EditableTitle size={32} centered title={currentQuestion.title} onChangeTitle={handleQuestionChangeTitle} />
               {questionValueBeforeUpdate && (
@@ -167,7 +189,7 @@ export const QuizManagementPage = (): JSX.Element => {
                   description={answer.description}
                   nextQuestionId={answer?.linkedQuestionId}
                   handleCreateQuestion={() => handleCreateNextQuestion(answer)}
-                  handleGoToNextQuestion={() => handleGoToNextQuestion(answer.id)}
+                  handleGoToNextQuestion={() => handleGoToNextQuestion(answer.linkedQuestionId)}
                   handleChangeAnswerData={(newAnswerValues) => handleChangeAnswerData(answer, newAnswerValues)}
                 />
               ))}
@@ -193,14 +215,14 @@ export const QuizManagementPage = (): JSX.Element => {
               <Button onClick={handleSaveAnswerChanges}>Salvar alterações</Button>
             </ButtonsContainer>
             )}
-          </>
+          </section>
         ) : (
-          <>
+          <section>
             <EditableTitle size={32} centered title={questionToCreate?.title} placeholder="Título da sua primeira pergunta!" onChangeTitle={(title: string) => setQuestionToCreate({ title })} />
             <ButtonsContainer>
               <Button onClick={handleCreateQuestion}>Criar</Button>
             </ButtonsContainer>
-          </>
+          </section>
         )}
       </Content>
     </Container>

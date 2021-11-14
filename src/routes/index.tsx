@@ -9,11 +9,14 @@ export const Routes = (): JSX.Element => (
     <Route exact path="/login">
       <LoginPage />
     </Route>
-    <Route exact path="/dashboard">
+    <Route exact path={['/', '/dashboard']}>
       <DashboardPage />
     </Route>
     <Route exact path="/quiz">
       <QuizPage />
+    </Route>
+    <Route exact path="/quiz/preview">
+      <QuizPage preview />
     </Route>
     <Route exact path="/quiz/management">
       <QuizManagementPage />
