@@ -4,20 +4,24 @@ export const DashboardSidebarContainer = styled.aside`
 
   width: 17%;
   transition: all ease-in-out 0.5s;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 
   background: ${(props) => props.theme.color.gray};
   border-radius: 0 12px 12px 0;
 
+  position: relative;
+
   nav {
-      height: 56px;
+    height: 56px;
     display: flex;
     justify-content: space-between;
     padding: 64px 0 0 0;
     align-items: center;
     width: 100%;
+
+    position: fixed;
 
     ul {
       width: 100%;
