@@ -28,7 +28,8 @@ export const Content = styled.article`
     gap: 56px;
 
     > section {
-      width: 624px;
+      width: 100%;
+      max-width: 624px;
       height: 480px;
     }
   }
