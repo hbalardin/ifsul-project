@@ -9,18 +9,33 @@ export const Container = styled.main`
   display: flex;
 `;
 
-export const Content = styled.article`
+export const Header = styled.header`
   width: 100%;
-  padding: 48px 72px;
+  height: 80px;
+  padding: 16px 72px;
+
+  border-bottom: 2px solid ${(props) => props.theme.color.gray};
 
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: end;
+  gap: 16px;
+`;
 
-  > header {
+export const Content = styled.article`
+  width: 100%;
+
+  > section{
+    padding: 48px 72px;
+
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
+
+    > header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
   }
 
   ul {

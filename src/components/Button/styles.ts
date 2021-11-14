@@ -16,8 +16,13 @@ export const ButtonContainer = styled.button`
 
   transition: all ease 0.2s;
 
-  :hover {
+  ::not(:disabled):hover {
     filter: brightness(0.9);
     transform: scale(1.05);
+  }
+
+  :disabled {
+    filter: brightness(0.8);
+    cursor: not-allowed;
   }
 `;

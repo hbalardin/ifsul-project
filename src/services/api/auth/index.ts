@@ -2,11 +2,7 @@ import { AxiosResponse } from 'axios';
 
 import { api } from '..';
 
-interface User {
-  id: string;
-  name: string;
-  username: string;
-}
+import { User } from '../../../models';
 
 export interface SignInCredentials {
   username: string;
