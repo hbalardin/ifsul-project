@@ -5,6 +5,8 @@ export * from './AnswersSidebar';
 export * from './Button';
 export * from './DashboardSidebar';
 export * from './EditableTitle';
+export * from './charts/GroupedBarChart';
+export * from './charts/LineChart';
 export * from './IconButton';
 export * from './Input';
 export * from './Step';
