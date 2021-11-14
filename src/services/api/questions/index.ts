@@ -17,6 +17,10 @@ interface GetQuestionByIdProps {
   id: string
 }
 
+interface GetPreviousQuestionProps {
+  currentQuestionId: string
+}
+
 interface UpdateQuestionProps {
   id: string
   title: string
@@ -64,6 +68,16 @@ const getQuestionById = async ({ id }: GetQuestionByIdProps): Promise<Question> 
   };
 };
 
+const getPreviousQuestion = async ({ currentQuestionId }: GetPreviousQuestionProps): Promise<Question> => {
+  const response = await api.get<DatabaseQuestion>(`/questions/previous/${currentQuestionId}`);
+
+  return {
+    id: response.data.id,
+    title: response.data.title,
+    linkedAnswerId: response.data.linked_answer_id,
+  };
+};
+
 const updateQuestion = async (data: UpdateQuestionProps): Promise<Question
 > => {
   const updatedQuestionResponse = await api.put<UpdateQuestionProps, AxiosResponse<DatabaseQuestion>>(`/questions/${data.id}`, data);
@@ -79,5 +93,6 @@ export const questionsService = {
   createQuestionFromAnswer,
   getQuestions,
   getQuestionById,
+  getPreviousQuestion,
   updateQuestion,
 };
