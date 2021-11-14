@@ -1,25 +1,25 @@
 import { Switch, Route } from 'react-router-dom';
 
 import {
-  Dashboard, Login, Profile, Quiz, QuizDashboard,
+  DashboardPage, LoginPage, ProfilePage, QuizManagementPage, QuizPage,
 } from '../pages';
 
 export const Routes = (): JSX.Element => (
   <Switch>
-    <Route exact path="/quiz">
-      <Quiz />
-    </Route>
     <Route exact path="/login">
-      <Login />
+      <LoginPage />
     </Route>
     <Route exact path="/dashboard">
-      <Dashboard />
+      <DashboardPage />
     </Route>
-    <Route exact path="/dashboard/quiz">
-      <QuizDashboard />
+    <Route exact path="/quiz">
+      <QuizPage />
+    </Route>
+    <Route exact path="/quiz/management">
+      <QuizManagementPage />
     </Route>
     <Route exact path="/profile">
-      <Profile />
+      <ProfilePage />
     </Route>
   </Switch>
 );
