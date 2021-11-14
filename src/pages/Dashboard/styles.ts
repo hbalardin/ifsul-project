@@ -11,4 +11,25 @@ export const Container = styled.main`
 
 export const Content = styled.article`
   width: 100%;
+  padding: 48px 72px;
+
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    font-size: 48px;
+
+    margin-bottom: 72px;
+  }
+
+  main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+
+    > section {
+      width: 624px;
+      height: 480px;
+    }
+  }
 `;
